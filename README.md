@@ -5,7 +5,6 @@
 
 O projeto visa gerenciar e exibir informações sobre o Planejamento Participativo da UTFPR, campus Pato Branco. O gerenciamento das informações é realizado utilizando os softwares OpenProject e Google Planilhas. Os dados são armazenados em um banco de dados relacional PostgreSQL, hospedado localmente na instituição. O projeto também inclui um website próprio para a geração e visualização de relatórios e dashboards.
 
-
 ### Arquitetura
 
 A arquitetura do projeto consiste em adicionar as informações do OpenProject e/ou Google Planilhas no banco de dados e, posteriormente, exibi-las em formato de relatórios e dashboards.
@@ -16,13 +15,14 @@ O fluxo de funcionamento segue a seguinte sequência:
 2. O script em Python insere as informações da planilha no banco de dados PostgreSQL;
 3. O OpenProject sincroniza as informações com o banco de dados;
 4. A aplicação Ruby on Rails coleta e filtra a informações do banco de dados e exibe seus relatórios e dashboards;
-5. O container Docker hospeda a aplicação Rails no endereço [http://172.29.150.197:3000](http://172.29.150.197:3000/)/
+5. O container Docker hospeda a aplicação Rails no endereço [http://172.29.150.197:3000](http://172.29.150.197:3000/) **OBS**: É necessário estar na rede da universidade para acessa-lo
 
 	O administrador também pode gerenciar as informações diretamente pelo OpenProject através de [http://172.29.150.197/openproject/](http://172.29.150.197/openproject/)
 
 	Diagrama da arquitetura do projeto:
 
 ![image](https://github.com/user-attachments/assets/0f6ffa44-ad28-499f-b261-fcc80301166a)
+
 
 
 ### Aplicação Ruby on Rails (RoR)
@@ -122,3 +122,8 @@ Para rodar o container na VM faz-se:
 docker pull thassiamorim/planejamento
 docker run -p 3000:3000 -d -e SECRET_KEY_BASE=<chave gerada> thassiamorim/planejamento`
 ```
+### Protótipo
+![image](https://github.com/user-attachments/assets/3296765c-6923-4227-8781-8175c7932225)
+![image](https://github.com/user-attachments/assets/9682a64f-adfd-44eb-9687-eeef7181983c)
+![image](https://github.com/user-attachments/assets/dbd8916d-b5de-4972-801f-90b6feec8fcf)
+
