@@ -1,0 +1,152 @@
+<%= stylesheet_link_tag "dashboard" %>
+
+<div id="container">
+    <div class="row">
+
+        <div class="chart-container completion">
+            <h3>Percentual de conclusão </h3>
+            <canvas id="completionChart" ></canvas>
+        </div>
+
+    
+        <div class="chart-container radar">
+            <h3>Evolução</h3>
+            <canvas id="radarChart"></canvas>
+        </div>
+
+        <div class="chart-container bola">
+            <h3>Distribuição de Dimensões</h3>
+            <canvas id="activityChart" ></canvas>
+        </div>
+
+    </div>
+</div>
+
+<script>
+let activities = <%= @activities_data.html_safe %>;
+
+let activityChart = null;
+let completionChart = null;
+let radarChart = null; 
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateCharts();
+});
+
+function generatePastelColors(numColors) {
+    const colors = [];
+    for (let i = 0; i < numColors; i++) {
+        colors.push(generateRandomPastelColor(colors));
+    }
+    return colors;
+}
+
+var h = 0; 
+function generateRandomPastelColor() {
+    h += 133; 
+    h = h % 360;
+    return 'hsla(' + h + ', 100%, 50%, 0.4)'; // 0.4 é a transparência
+}
+
+function updateCharts() {
+    if (activityChart !== null) {
+        activityChart.destroy();
+    }
+    if (completionChart !== null) {
+        completionChart.destroy();
+    }
+    if (radarChart !== null) {
+        radarChart.destroy();
+    }
+
+    const activityLabels = Object.keys(activities);
+    const numActivities = activityLabels.length;
+    const activityColors = generatePastelColors(numActivities);
+    
+    const activityData = activityLabels.map(categoryName => activities[categoryName].length);
+
+    const activityChartCtx = document.getElementById('activityChart').getContext('2d');
+    activityChart = new Chart(activityChartCtx, {
+        type: 'doughnut',
+        data: {
+            labels: activityLabels,
+            datasets: [{
+                label: 'Objetivos',
+                data: activityData,
+                backgroundColor: activityColors,
+                borderWidth: 1,
+                hoverOffset: 15
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom' // Define a posição da legenda como 'bottom' (embaixo)
+                }
+            }
+        }
+    });
+
+    const completionData = activityLabels.map(categoryName => {
+        const total = activities[categoryName].reduce((acc, activity) => acc + activity.completion, 0);
+        const averageCompletion = activities[categoryName].length > 0 ? total / activities[categoryName].length : 0;
+        return averageCompletion === 0 ? 0.3 : averageCompletion;
+    });
+    console.log(completionData);
+
+    const completionChartCtx = document.getElementById('completionChart').getContext('2d');
+    completionChart = new Chart(completionChartCtx, {
+        type: 'bar',
+        data: {
+            labels: activityLabels,
+            datasets: [{
+                label: 'Média de Conclusão',
+                data: completionData,
+                backgroundColor: activityColors,
+                borderColor: 'rgba(0, 0, 0, 0.2)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Criando o Radar Chart
+    const radarData = { 
+        labels: activityLabels,
+        datasets: [
+            {
+                label: 'Progresso',
+                data: completionData,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)', 
+                borderColor: 'rgba(54, 162, 235, 1)', 
+                borderWidth: 1
+            }
+        ]
+    };
+
+    const radarChartCtx = document.getElementById('radarChart').getContext('2d');
+    radarChart = new Chart(radarChartCtx, {
+        type: 'radar',
+        data: radarData,
+        options: {
+            scales: {
+                r: {
+                    suggestedMin: 0,
+                    suggestedMax: 100, // Ajuste a escala se necessário
+                    pointLabels: {
+                        font: {
+                            size: 11 // Tamanho da fonte para os rótulos dos pontos
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+</script>

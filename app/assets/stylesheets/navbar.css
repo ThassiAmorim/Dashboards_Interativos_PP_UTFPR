@@ -1,0 +1,62 @@
+/* navbar.css */
+
+body{
+    margin: 0;
+}
+
+.navbar {
+    background: linear-gradient(to left, #9ee0f000, #c4f0fa); 
+    padding: 5px; 
+    color: white; 
+    display: flex;
+    justify-content:left;
+    margin-bottom: 1%;
+}
+
+.logo {
+    width: 100px; 
+    margin-right: 20px;
+}
+
+
+#activities-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 3px;
+}
+
+
+#activities-links li{
+    display: inline-block; 
+    margin-right: 20px; 
+}
+
+
+#activities-links li a {
+    color: rgb(0, 0, 0); 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    text-decoration: none; 
+    padding: 5px 10px;
+    border-radius: 5px; 
+    background-color: #00000000; 
+    transition: background-color 0.8s ease;
+}
+
+#activities-links li a:hover{
+    background-color: #6f72ff65; 
+}
+
+.navbar p{
+    margin: 5px 0;
+    color: rgb(36, 36, 36);
+    margin-bottom: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#activities-links .active {
+    background-color: #6f72ff65; /* Define a cor de fundo como escura */
+    color: #000000; /* Define a cor do texto como branca */
+}

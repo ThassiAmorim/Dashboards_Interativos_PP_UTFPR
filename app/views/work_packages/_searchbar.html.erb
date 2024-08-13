@@ -1,0 +1,11 @@
+<%= stylesheet_link_tag "activity" %>
+
+<div class=search-bar>
+        <%= form_tag search_path, method: :get do %>
+            Nome do Objetivo:
+            <%= text_field_tag :query, params[:query], placeholder: "Opcional"%>   
+            Dimensão:     
+            <%= select_tag :filter, options_for_select(["Todos", "Graduação", "Pesquisa e Pós-Graduação", "Relações Empresariais e Comunitárias", "Implementações e Infraestrutura", "Gestão do Campus", "Processos", "Servidores","Discentes", "Comunidade Acadêmica"], params[:filter]), class: "form-control" %>         
+          <%= submit_tag "Buscar", class: "btn btn-primary" %>
+      <% end %>
+      </div>

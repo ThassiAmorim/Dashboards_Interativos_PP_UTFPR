@@ -1,0 +1,80 @@
+<%= stylesheet_link_tag "chart" %>
+
+
+<div class="chart-container" style="width: 100%; overflow-x: auto; display: flex;">
+  <div class="legend-container" id="legend_<%= work_package.id %>" style="width: 30%; flex-shrink: 0;">
+    <!-- Aqui é onde a legenda será renderizada dinamicamente -->
+  </div>
+  <div class="chart" style="flex-grow: 1;">
+    <canvas id="barChart_<%= work_package.id %>" style="height: 400px;"></canvas> <!-- Definindo a altura do canvas -->
+  </div>
+</div>
+
+<script>
+  var data_<%= work_package.id %> = [ //Work_package pai
+    <% work_package.children.each do |child| %>
+      { subject: '<%= child.subject.strip.gsub(/\s+/, ' ').gsub("'", "\\\\'") %>', done_ratio: <%if child.done_ratio == 0 %> <%= 1 %> <%else%> <%= child.done_ratio %> <%end%>}, //para mostrar o progresso 0 também
+    <% end %>
+  ];
+
+var aux = 133;// para ajudar a gerar cores distintas
+
+var ctx_<%= work_package.id %> = document.getElementById('barChart_<%= work_package.id %>').getContext('2d');
+var barChart_<%= work_package.id %> = new Chart(ctx_<%= work_package.id %>, {
+    type: 'bar',
+    data: {
+      labels: data_<%= work_package.id %>.map(item => item.subject),
+      datasets: [{
+        label: 'Progresso',
+        data: data_<%= work_package.id %>.map(item => item.done_ratio),
+        backgroundColor: data_<%= work_package.id %>.map(item => randomColor()), // Usando cores aleatórias para as barras
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          display: false // Oculta os rótulos do eixo X
+        },
+        y: {
+          display: true,
+          min: 0, //escala de y
+          max: 100
+        }
+      }
+    }
+});
+
+
+  // Gerando a legenda dinamicamente
+  var legend_<%= work_package.id %> = document.getElementById('legend_<%= work_package.id %>');
+  data_<%= work_package.id %>.forEach(function(item, index) {
+    var legendItem = document.createElement('div');
+    legendItem.classList.add('legend-item');
+
+    var colorBox = document.createElement('div');
+    colorBox.classList.add('legend-color');
+    colorBox.style.backgroundColor = barChart_<%= work_package.id %>.data.datasets[0].backgroundColor[index];
+    legendItem.appendChild(colorBox);
+
+    var text = document.createElement('span');
+    text.textContent = item.subject;
+    legendItem.appendChild(text);
+
+    legend_<%= work_package.id %>.appendChild(legendItem);
+  });
+
+
+function randomColor() {
+  var h = aux;
+  aux = (h + 133) % 360
+  var s = 100; 
+  var l = 50; 
+  var a = 0.4; // transparência em 0.4
+
+  return 'hsla(' + h + ', ' + s + '%, ' + l + '%, ' + a + ')';
+}
+</script>
+
+

@@ -1,0 +1,61 @@
+<%= stylesheet_link_tag "activity" %>
+
+
+<div class="work_package">
+  <p>
+    <strong>Nome:</strong>
+    <%= work_package.subject %>
+  </p>
+
+  <% if work_package.parent_id.nil? %>
+  <p>
+    <strong>Dimensão:</strong>
+    
+    <% if work_package.subject =~ /^GR\./ %>
+      Graduação
+    <% elsif work_package.subject =~ /^PG\./ %>
+      Pesquisa e Pós-Graduação
+    <% elsif work_package.subject =~ /^REC\./ %>
+      Relações Empresariais e Comunitárias
+    <% elsif work_package.subject =~ /^INFRA\./ %>
+      Infraestrutura
+    <% elsif work_package.subject =~ /^GT\./ %>
+      Gestão do Campus
+    <% elsif work_package.subject =~ /^GTP\./ %>
+      Processos
+    <% elsif work_package.subject =~ /^SV\./ %>
+      Servidores
+    <% elsif work_package.subject =~ /^CA\./ %>
+      Comunidade Acadêmica
+    <% end %>
+  </p>
+<% end %>
+
+
+  <p>
+  <% if work_package.parent_id.present? %>
+    <strong>Responsável:</strong>
+    <% if work_package.responsible_user.present? %>
+      <%= work_package.responsible_user.firstname %> <%= work_package.responsible_user.lastname %>
+    <% else %>
+      Não atribuído
+    <% end %>
+  <% end %>
+</p>
+
+  <p>
+    <strong>Progresso:</strong>
+    <span class="progress-container">
+      <span class="progress-bar" style="width: <%= work_package.done_ratio  %>%;"></span>
+      <span class="progress-label"><%= work_package.done_ratio %>%</span>
+    </span>
+  </p>
+
+  <% if action_name == "show" && work_package.id.to_s == params[:id].to_s%>
+    <p>
+      <strong>Descrição:</strong>
+      <%= simple_format(work_package.description) %>
+    </p>
+  <% end %>
+
+</div>

@@ -1,0 +1,24 @@
+<%= stylesheet_link_tag "activity" %>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<%if @work_package.parent_id.present?%>
+  <%= link_to 'Voltar para Objetivo', work_package_path(@work_package.parent_id), class: 'voltar'  %>
+<%elsif%>
+  <%= link_to 'Voltar para Objetivos', work_packages_path, class: 'voltar'%>
+<%end%>
+
+<div class="activities">
+  
+  <div class="activity">
+    <%= render @work_package %>
+  </div>
+  <% @work_packages_filhos.each do |work_package| %>
+      <div class="activity">
+          <%= render work_package %>
+        <p id="detalhes">
+          <%= link_to "Detalhes", work_package %>
+        </p>
+      </div>
+    <% end %>
+</div>

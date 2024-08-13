@@ -1,0 +1,13 @@
+<%= stylesheet_link_tag "navbar" %>
+
+<nav class="navbar">
+
+    <%= link_to image_tag("logo-utfpr.png", class:"logo"), root_path %>
+
+    <ul id="activities-links">
+        <li><%= link_to "Objetivos", work_packages_path, class: current_page?(work_packages_path) ? 'active' : nil %></li>
+        <li><%= link_to "Dashboards", dashboard_path, data: { turbo: "false" }, class: current_page?(dashboard_path) ? 'active' : nil %>
+        <li><%= link_to "Relatórios", relatorio_path, class: current_page?(relatorio_path) ? 'active' : nil%>
+</li>
+    </ul>
+</nav>

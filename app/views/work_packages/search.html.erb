@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag "activity" %>
+
+<div class="background"></div>
+
+  <%= render "searchbar" %>
+
+  <div class="activities">
+
+    <% if @work_packages.present? %>
+
+        <% @work_packages.each do |work_package| %>
+          <div class="activity">
+            <%= render work_package %>
+            <p id="detalhes">
+              <%= link_to "Detalhes", work_package %>
+            </p>
+          </div>
+          <%= render "chart", work_package: work_package %>
+        <% end %>
+    <% else %>
+      <p>Nenhuma atividade encontrada.</p>
+    <% end %>
+</div>

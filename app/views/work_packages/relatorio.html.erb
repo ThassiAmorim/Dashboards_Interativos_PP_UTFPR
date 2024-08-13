@@ -1,0 +1,20 @@
+<%= stylesheet_link_tag "relatorio" %>
+
+<div class="report-container">
+    <h2 class="report-title">Dimensões</h2> 
+
+    <h3 class="activity-list"> 
+        <ul>
+        <li>Graduação: <%=@work_packages_graduacao%></li>
+        <li>Pesquisa e Pós-Graduação: <%=@work_packages_pos%></li>
+        <li>Infraestrutura: <%=@work_packages_infra%></li>
+        <li>Relações Empresariais e Comunitárias: <%=@work_packages_relacoes%></li>
+        <li>Gestão do Campus: <%=@work_packages_gestao%></li>
+        <li>Servidores: <%=@work_packages_servidores%></li>
+        <li>Processos: <%=@work_packages_processos%></li>
+        <li>Discentes: <%=@work_packages_discentes%></li>
+        <li>Comunidade Acadêmica: <%=@work_packages_comunidade %></li>
+        </ul>
+    </h3>
+
+    <h3>Total: <span class="total-value"><%=@work_packages_total%></span></h3>
