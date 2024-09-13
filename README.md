@@ -3,7 +3,7 @@
 
 ### Resumo
 
-O projeto visa gerenciar e exibir informações sobre o Planejamento Participativo da UTFPR, campus Pato Branco. O gerenciamento das informações é realizado utilizando os softwares OpenProject e Google Planilhas. Os dados são armazenados em um banco de dados relacional PostgreSQL, hospedado localmente na instituição. O projeto também inclui um website próprio para a geração e visualização de relatórios e dashboards.
+O projeto visa gerenciar e exibir informações sobre o Planejamento Participativo da UTFPR, campus Pato Branco. O gerenciamento das informações é realizado utilizando os softwares OpenProject e Google Planilhas. Os dados são armazenados em um banco de dados relacional PostgreSQL, hospedado localmente na instituição. O projeto também inclui um website próprio para a geração e visualização de relatórios e dashboards. Demonstração do projeto: [Vídeo demonstração - Planejamento Participativo](https://youtu.be/pkRfwIpAnNU)
 
 ### Arquitetura
 
