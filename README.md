@@ -121,7 +121,9 @@ docker pull thassiamorim/planejamento
 docker run -p 3000:3000 -d -e SECRET_KEY_BASE=<chave gerada> thassiamorim/planejamento`
 ```
 ### Protótipo
-![image](https://github.com/user-attachments/assets/3296765c-6923-4227-8781-8175c7932225)
-![image](https://github.com/user-attachments/assets/9682a64f-adfd-44eb-9687-eeef7181983c)
-![image](https://github.com/user-attachments/assets/dbd8916d-b5de-4972-801f-90b6feec8fcf)
+![image](https://github.com/user-attachments/assets/9495c2d3-35f8-4e50-b543-c12355652551)
+![image](https://github.com/user-attachments/assets/808d2e55-60d8-42bf-98c8-05bc123d1c3c)
+![image](https://github.com/user-attachments/assets/bc42754e-bc6a-489b-a036-c7ddf477d04d)
+
+
 
